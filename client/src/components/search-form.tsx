@@ -71,7 +71,7 @@ export function SearchForm({ onSearch }: SearchFormProps) {
                 id="multiple-queries"
                 value={multipleQueries}
                 onChange={(e) => setMultipleQueries(e.target.value)}
-                placeholder="name;username;example@domain.com;+79002206090"
+                placeholder="name&#10;username&#10;example@domain.com&#10;+79002206090"
                 className="min-h-32 font-mono text-sm"
                 data-testid="input-multiple-queries"
               />
