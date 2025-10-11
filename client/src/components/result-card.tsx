@@ -28,7 +28,14 @@ export function ResultCard({
   const { toast } = useToast();
 
   const handleCopy = () => {
-    const text = JSON.stringify({ databaseName, infoLeak, data }, null, 2);
+    let text = `${databaseName}\n${infoLeak}\n\n`;
+    data.forEach((record, idx) => {
+      text += `Record ${idx + 1}:\n`;
+      Object.entries(record).forEach(([key, value]) => {
+        text += `${key}: ${value}\n`;
+      });
+      text += '\n';
+    });
     navigator.clipboard.writeText(text);
     toast({
       title: "Copied to clipboard",
@@ -37,10 +44,28 @@ export function ResultCard({
   };
 
   const handleExport = () => {
-    console.log("Export triggered for:", databaseName);
+    let text = `${databaseName}\n${infoLeak}\n\n`;
+    data.forEach((record, idx) => {
+      text += `Record ${idx + 1}:\n`;
+      Object.entries(record).forEach(([key, value]) => {
+        text += `${key}: ${value}\n`;
+      });
+      text += '\n';
+    });
+    
+    const blob = new Blob([text], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${databaseName.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_export.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
     toast({
-      title: "Export started",
-      description: `Exporting data from ${databaseName}`,
+      title: "Export completed",
+      description: `Data from ${databaseName} exported successfully`,
     });
   };
 
