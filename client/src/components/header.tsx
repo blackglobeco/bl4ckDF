@@ -10,7 +10,7 @@ export function Header() {
               className="h-6 w-6"
             />
           </div>
-          <h1 className="text-xl font-semibold">BlackAI ⚛ Digital Footprint</h1>
+          <h1 className="text-xl font-semibold">Digital Footprint</h1>
         </div>
       </div>
     </header>
